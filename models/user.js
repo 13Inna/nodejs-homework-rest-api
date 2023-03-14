@@ -5,7 +5,7 @@ const Joi = require("joi");
 const { handleMongooseError } = require("../helpers");
 
 const userSchema = new Schema({
-password: {
+  password: {
     type: String,
     required: [true, 'Set password for user'],
   },
@@ -22,8 +22,12 @@ password: {
   token: {
     type: String,
     default: ""
+  },
+  avatarURL: {
+    type: String,
+    required: [true, "Avatar is required"],
   }
-})
+}, { versionKey: false, timestamps: true });
 
 userSchema.post("save", handleMongooseError);
 
