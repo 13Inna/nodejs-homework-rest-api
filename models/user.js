@@ -26,7 +26,15 @@ const userSchema = new Schema({
   avatarURL: {
     type: String,
     required: [true, "Avatar is required"],
-  }
+  },
+  verify: {
+    type: Boolean,
+    default: false,
+  },
+  verificationToken: {
+    type: String,
+    required: [true, 'Verify token is required'],
+}
 }, { versionKey: false, timestamps: true });
 
 userSchema.post("save", handleMongooseError);
@@ -42,9 +50,14 @@ const loginSchema = Joi.object({
   email: Joi.string().required(),
 });
 
+const emailSchema = Joi.object({
+  email: Joi.string().required(),
+});
+
 const schemas = {
-    registerSchema,
-    loginSchema,
+  registerSchema,
+  loginSchema,
+  emailSchema
 }
 
 const User = model("user", userSchema);
